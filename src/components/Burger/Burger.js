@@ -4,53 +4,19 @@ import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 import classes from './Burger.css';
 
 const burger = (props) => {
+
+    const burgerIngredients =
+        Object
+            .keys(props.ingredients)
+            .map(ingredientKey =>
+                [...Array(props.ingredients[ingredientKey])]
+                    .map((_, index) => <BurgerIngredient key={ingredientKey + index} type={ingredientKey}/>)
+            );
+
     return (
         <div className={classes.Burger}>
             <BurgerIngredient type='bread-top'/>
-            <BurgerIngredient type='cheese'/>
-            <BurgerIngredient type='bacon'/>
-            <BurgerIngredient type='meat'/>
-            <BurgerIngredient type='salad'/>
-            <BurgerIngredient type='cheese'/>
-            <BurgerIngredient type='bacon'/>
-            <BurgerIngredient type='meat'/>
-            <BurgerIngredient type='salad'/>
-            <BurgerIngredient type='cheese'/>
-            <BurgerIngredient type='bacon'/>
-            <BurgerIngredient type='meat'/>
-            <BurgerIngredient type='salad'/>
-            <BurgerIngredient type='cheese'/>
-            <BurgerIngredient type='bacon'/>
-            <BurgerIngredient type='meat'/>
-            <BurgerIngredient type='salad'/>
-            <BurgerIngredient type='cheese'/>
-            <BurgerIngredient type='bacon'/>
-            <BurgerIngredient type='meat'/>
-            <BurgerIngredient type='salad'/>
-            <BurgerIngredient type='cheese'/>
-            <BurgerIngredient type='bacon'/>
-            <BurgerIngredient type='meat'/>
-            <BurgerIngredient type='salad'/>
-            <BurgerIngredient type='cheese'/>
-            <BurgerIngredient type='bacon'/>
-            <BurgerIngredient type='meat'/>
-            <BurgerIngredient type='salad'/>
-            <BurgerIngredient type='cheese'/>
-            <BurgerIngredient type='bacon'/>
-            <BurgerIngredient type='meat'/>
-            <BurgerIngredient type='salad'/>
-            <BurgerIngredient type='cheese'/>
-            <BurgerIngredient type='bacon'/>
-            <BurgerIngredient type='meat'/>
-            <BurgerIngredient type='salad'/>
-            <BurgerIngredient type='cheese'/>
-            <BurgerIngredient type='bacon'/>
-            <BurgerIngredient type='meat'/>
-            <BurgerIngredient type='salad'/>
-            <BurgerIngredient type='cheese'/>
-            <BurgerIngredient type='bacon'/>
-            <BurgerIngredient type='meat'/>
-            <BurgerIngredient type='salad'/>
+            {burgerIngredients}
             <BurgerIngredient type='bread-bottom'/>
         </div>
     );
