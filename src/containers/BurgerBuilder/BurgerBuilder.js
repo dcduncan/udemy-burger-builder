@@ -21,7 +21,8 @@ class BurgerBuilder extends Component {
             cheese: 0,
             meat: 0
         },
-        totalPrice: BASE_BURGER_PRICE
+        totalPrice: BASE_BURGER_PRICE,
+        purchasable: false
     };
 
     addIngredientHandler = (type) => {
@@ -31,10 +32,10 @@ class BurgerBuilder extends Component {
             };
             updatedIngredients[type] = previousState.ingredients[type] + 1;
             const newTotalPrice = previousState.totalPrice + INGREDIENT_PRICES[type];
-
             return {
                 ingredients: updatedIngredients,
-                totalPrice: newTotalPrice
+                totalPrice: newTotalPrice,
+                purchasable: newTotalPrice > BASE_BURGER_PRICE
             }
         })
     };
@@ -52,10 +53,10 @@ class BurgerBuilder extends Component {
             }
 
             const newTotalPrice = previousState.totalPrice - INGREDIENT_PRICES[type];
-
             return {
                 ingredients: updatedIngredients,
-                totalPrice: newTotalPrice
+                totalPrice: newTotalPrice,
+                purchasable: newTotalPrice > BASE_BURGER_PRICE
             }
         })
     };
@@ -77,7 +78,8 @@ class BurgerBuilder extends Component {
                     addIngredientHandler={this.addIngredientHandler}
                     removeIngredientHandler={this.removeIngredientHandler}
                     disabled={disabledInfo}
-                    totalPrice={this.state.totalPrice} />
+                    totalPrice={this.state.totalPrice}
+                    purchasable={this.state.purchasable}/>
             </Aux>
         );
     }
