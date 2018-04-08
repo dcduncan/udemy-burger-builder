@@ -29,7 +29,7 @@ class BurgerBuilder extends Component {
     };
 
     addIngredientHandler = (type) => {
-        this.setState((previousState, props) => {
+        this.setState((previousState) => {
             const updatedIngredients = {
                 ...previousState.ingredients
             };
