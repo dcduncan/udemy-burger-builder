@@ -85,7 +85,7 @@ class BurgerBuilder extends Component {
 
         this.props.history.push({
             pathname: '/checkout',
-            search: '?' + query
+            search: '?' + query + '&price=' + this.state.totalPrice
         })
     };
 
