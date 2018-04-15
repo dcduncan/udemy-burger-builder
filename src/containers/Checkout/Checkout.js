@@ -24,7 +24,7 @@ class Checkout extends Component {
         }
         this.setState({
             ingredients: ingredients,
-            totalPrice: price
+            price: price
         });
     };
 
@@ -49,7 +49,7 @@ class Checkout extends Component {
                     render={(props) => (
                         <ContactData
                             ingredients={this.state.ingredients}
-                            price={this.state.totalPrice}
+                            price={this.state.price}
                             {...props} />
                     )}
                 />
