@@ -9,12 +9,33 @@ import classes from './ContactData.css';
 
 class ContactData extends Component {
 
+    createInputObject(elementType, type, placeholder, value) {
+        return {
+            elementType: elementType,
+            elementConfig: {
+                type: type,
+                placeholder: placeholder
+            },
+            value: value
+        }
+    }
+
     state = {
-        name: 'Billy',
-        email: 'billy@bill.bill',
-        address: {
-            street: '817 Bill ave',
-            postalCode: '36509'
+        orderForm: {
+            name: this.createInputObject('input', 'text', 'Name', ''),
+            email: this.createInputObject('input', 'email', 'Email', ''),
+            street: this.createInputObject('input', 'text', 'Street', ''),
+            postalCode: this.createInputObject('input', 'text', 'Zip Code', ''),
+            deliveryMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        { value: 'fastest', displayValue: 'Fastest' },
+                        { value: 'cheapest', displayValue: 'Cheapest' },
+                    ]
+                },
+                value: ''
+            }
         },
         loading: false
     };
@@ -27,12 +48,6 @@ class ContactData extends Component {
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.price,
-            customer: {
-                name: this.state.name,
-                address: this.state.address,
-                email: this.state.email
-            },
-            deliveryMethod: 'fastest'
         };
 
         axios.post('/orders.json', order)
@@ -50,13 +65,17 @@ class ContactData extends Component {
         if (this.state.loading) {
             return <Spinner/>
         } else {
+            const inputs = Object.values(this.state.orderForm)
+                .map((value, index) =>
+                    <Input
+                        key={index}
+                        elementType={value.elementType}
+                        elementConfig={value.elementConfig}
+                        value={value.value} />
+                );
             return (
                 <form>
-                    <Input inputType="input" inputAttributes={{id: 'name', type: 'text', name: 'name', placeholder: 'Billy'}}/>
-                    <Input inputType="input" inputAttributes={{id: 'email', type: 'email', name: 'email', placeholder: 'billy@bill.bill'}}/>
-                    <Input inputType="input" inputAttributes={{id: 'street', type: 'text', name: 'street', placeholder: '817 Bill ave'}}/>
-                    <Input inputType="input" inputAttributes={{id: 'postal', type: 'text', name: 'postal', placeholder: '36509'}}/>
-
+                    {inputs}
                     <Button buttonType="Success" onClick={this.orderHandler}>ORDER</Button>
                 </form>
             );
