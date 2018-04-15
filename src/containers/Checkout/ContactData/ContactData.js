@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Input from '../../../components/UI/Input/Input';
 
 import axios from '../../../axios-orders';
 import classes from './ContactData.css';
@@ -51,17 +52,10 @@ class ContactData extends Component {
         } else {
             return (
                 <form>
-                    <label htmlFor="name">Name:</label>
-                    <input id="name" type="text" name="name" placeholder="Billy"/>
-
-                    <label htmlFor="email">Email:</label>
-                    <input id="email" type="email" name="email" placeholder="billy@bill.bill"/>
-
-                    <label htmlFor="street">Street:</label>
-                    <input id="street" type="text" name="street" placeholder="817 Bill ave"/>
-
-                    <label htmlFor="postal">Postal:</label>
-                    <input id="postal" type="text" name="postal" placeholder="36509"/>
+                    <Input inputType="input" inputAttributes={{id: 'name', type: 'text', name: 'name', placeholder: 'Billy'}}/>
+                    <Input inputType="input" inputAttributes={{id: 'email', type: 'email', name: 'email', placeholder: 'billy@bill.bill'}}/>
+                    <Input inputType="input" inputAttributes={{id: 'street', type: 'text', name: 'street', placeholder: '817 Bill ave'}}/>
+                    <Input inputType="input" inputAttributes={{id: 'postal', type: 'text', name: 'postal', placeholder: '36509'}}/>
 
                     <Button buttonType="Success" onClick={this.orderHandler}>ORDER</Button>
                 </form>

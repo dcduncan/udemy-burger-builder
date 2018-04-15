@@ -8,15 +8,6 @@
     box-sizing: border-box;
 }
 
-.ContactData form {
-    display: grid;
-    grid-template-columns: 20% 80%;
-}
-
-.ContactData form input {
-    width: 93%;
-}
-
 @media (min-width: 600px) {
     .ContactData {
         width: 500px;
