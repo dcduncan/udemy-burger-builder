@@ -5,7 +5,7 @@ import classes from './Input.css';
 function getInputElement(props) {
 
     const inputClasses = [classes.InputElement];
-    if (!props.valid) {
+    if (!props.valid && props.touched) {
         inputClasses.push(classes.Invalid);
     }
     const classNames = inputClasses.join(' ');

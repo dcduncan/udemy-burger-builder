@@ -20,7 +20,8 @@ class ContactData extends Component {
             validation: {
                 rules: rules
             },
-            valid: false
+            valid: false,
+            touched: false
         }
     }
 
@@ -99,6 +100,7 @@ class ContactData extends Component {
         const updatedFormElement = {...updatedForm[key]};
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = this.checkValidity(updatedFormElement, updatedFormElement.validation.rules);
+        updatedFormElement.touched = true;
         updatedForm[key] = updatedFormElement;
         this.setState({
             orderForm: updatedForm
@@ -118,6 +120,7 @@ class ContactData extends Component {
                         elementType={value.elementType}
                         elementConfig={value.elementConfig}
                         value={value.value}
+                        touched={value.touched}
                         onChange={(event) => this.inputChangeHandler(event, key)}/>
                 });
             return (
