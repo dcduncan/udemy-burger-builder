@@ -9,7 +9,19 @@ function getInputElement(props) {
         case ('textarea'):
             return <textarea className={classes.InputElement} {...props.elementConfig} value={props.value} />;
         case ('select'):
-            return <select className={classes.InputElement} {...props.elementConfig} value={props.value} />;
+            return (
+                <select
+                    className={classes.InputElement}
+                    value={props.value}>
+                    {props.elementConfig.options.map((option) =>
+                        <option
+                            key={option.value}
+                            value={option.value}>
+                            {option.displayValue}
+                        </option>
+                    )}
+                </select>
+            );
         default:
             throw new Error('unknow input type' + props.inputType);
     }

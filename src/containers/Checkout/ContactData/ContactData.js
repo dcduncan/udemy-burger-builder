@@ -65,14 +65,15 @@ class ContactData extends Component {
         if (this.state.loading) {
             return <Spinner/>
         } else {
-            const inputs = Object.values(this.state.orderForm)
-                .map((value, index) =>
-                    <Input
-                        key={index}
+            const inputs = Object.entries(this.state.orderForm)
+                .map((entry) => {
+                    const [key, value] = entry;
+                    return <Input
+                        key={key}
                         elementType={value.elementType}
                         elementConfig={value.elementConfig}
-                        value={value.value} />
-                );
+                        value={value.value}/>
+                });
             return (
                 <form>
                     {inputs}
