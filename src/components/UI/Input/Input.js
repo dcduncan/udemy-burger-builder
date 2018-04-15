@@ -3,17 +3,24 @@ import React from 'react';
 import classes from './Input.css';
 
 function getInputElement(props) {
+
+    const inputClasses = [classes.InputElement];
+    if (!props.valid) {
+        inputClasses.push(classes.Invalid);
+    }
+    const classNames = inputClasses.join(' ');
+
     switch (props.elementType) {
         case ('input'):
             return <input
-                className={classes.InputElement}
+                className={classNames}
                 {...props.elementConfig}
                 value={props.value}
                 onChange={props.onChange}
             />;
         case ('textarea'):
             return <textarea
-                className={classes.InputElement}
+                className={classNames}
                 {...props.elementConfig}
                 value={props.value}
                 onChange={props.onChange}
@@ -21,7 +28,7 @@ function getInputElement(props) {
         case ('select'):
             return (
                 <select
-                    className={classes.InputElement}
+                    className={classNames}
                     value={props.value}
                     onChange={props.onChange}>
                     {props.elementConfig.options.map((option) =>

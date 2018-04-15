@@ -38,7 +38,11 @@ class ContactData extends Component {
                         { value: 'cheapest', displayValue: 'Cheapest' },
                     ]
                 },
-                value: ''
+                value: '',
+                validation: {
+                    rules: {}
+                },
+                valid: true
             }
         },
         loading: false
@@ -96,7 +100,6 @@ class ContactData extends Component {
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = this.checkValidity(updatedFormElement, updatedFormElement.validation.rules);
         updatedForm[key] = updatedFormElement;
-        console.log(updatedFormElement);
         this.setState({
             orderForm: updatedForm
         });
@@ -111,6 +114,7 @@ class ContactData extends Component {
                     const [key, value] = entry;
                     return <Input
                         key={key}
+                        valid={value.valid}
                         elementType={value.elementType}
                         elementConfig={value.elementConfig}
                         value={value.value}
