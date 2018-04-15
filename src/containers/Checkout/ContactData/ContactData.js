@@ -9,23 +9,27 @@ import classes from './ContactData.css';
 
 class ContactData extends Component {
 
-    createInputObject(elementType, type, placeholder, value) {
+    createInputObject(elementType, type, placeholder, rules) {
         return {
             elementType: elementType,
             elementConfig: {
                 type: type,
                 placeholder: placeholder
             },
-            value: value
+            value: '',
+            validation: {
+                rules: rules
+            },
+            valid: false
         }
     }
 
     state = {
         orderForm: {
-            name: this.createInputObject('input', 'text', 'Name', ''),
-            email: this.createInputObject('input', 'email', 'Email', ''),
-            street: this.createInputObject('input', 'text', 'Street', ''),
-            postalCode: this.createInputObject('input', 'text', 'Zip Code', ''),
+            name: this.createInputObject('input', 'text', 'Name', { required: true, minLength: 3 }),
+            email: this.createInputObject('input', 'email', 'Email', { required: true, minLength: 4 } ),
+            street: this.createInputObject('input', 'text', 'Street', { required: true, minLength: 4 } ),
+            postalCode: this.createInputObject('input', 'text', 'Zip Code', { required: true, minLength: 5, maxLength:10 }),
             deliveryMethod: {
                 elementType: 'select',
                 elementConfig: {
@@ -69,11 +73,30 @@ class ContactData extends Component {
             });
     };
 
+    checkValidity(element, rules) {
+        const value = element.value ? element.value.trim() : '';
+        if (rules.required && value === '') {
+            return false;
+        }
+
+        if (rules.minLength && value.length < rules.minLength) {
+            return false;
+        }
+
+        if (rules.maxLength && value.length > rules.maxLength) {
+            return false;
+        }
+
+        return true;
+    }
+
     inputChangeHandler = (event, key) => {
         const updatedForm = {...this.state.orderForm};
-        const updatedValue = {...updatedForm[key]};
-        updatedValue.value = event.target.value;
-        updatedForm[key] = updatedValue;
+        const updatedFormElement = {...updatedForm[key]};
+        updatedFormElement.value = event.target.value;
+        updatedFormElement.valid = this.checkValidity(updatedFormElement, updatedFormElement.validation.rules);
+        updatedForm[key] = updatedFormElement;
+        console.log(updatedFormElement);
         this.setState({
             orderForm: updatedForm
         });
