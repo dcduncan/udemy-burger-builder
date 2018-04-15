@@ -39,13 +39,14 @@ class ContactData extends Component {
                         { value: 'cheapest', displayValue: 'Cheapest' },
                     ]
                 },
-                value: '',
+                value: 'fastest',
                 validation: {
                     rules: {}
                 },
                 valid: true
             }
         },
+        formIsValid: false,
         loading: false
     };
 
@@ -102,8 +103,11 @@ class ContactData extends Component {
         updatedFormElement.valid = this.checkValidity(updatedFormElement, updatedFormElement.validation.rules);
         updatedFormElement.touched = true;
         updatedForm[key] = updatedFormElement;
+
+        const formIsValid = Object.values(updatedForm).reduce((acc, value) => acc && value.valid, true);
         this.setState({
-            orderForm: updatedForm
+            orderForm: updatedForm,
+            formIsValid: formIsValid
         });
     };
 
@@ -126,7 +130,7 @@ class ContactData extends Component {
             return (
                 <form onSubmit={this.orderHandler}>
                     {inputs}
-                    <Button buttonType="Success">ORDER</Button>
+                    <Button buttonType="Success" disabled={!this.state.formIsValid}>ORDER</Button>
                 </form>
             );
         }
