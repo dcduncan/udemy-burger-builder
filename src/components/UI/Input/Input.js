@@ -5,14 +5,25 @@ import classes from './Input.css';
 function getInputElement(props) {
     switch (props.elementType) {
         case ('input'):
-            return <input className={classes.InputElement} {...props.elementConfig} value={props.value} />;
+            return <input
+                className={classes.InputElement}
+                {...props.elementConfig}
+                value={props.value}
+                onChange={props.onChange}
+            />;
         case ('textarea'):
-            return <textarea className={classes.InputElement} {...props.elementConfig} value={props.value} />;
+            return <textarea
+                className={classes.InputElement}
+                {...props.elementConfig}
+                value={props.value}
+                onChange={props.onChange}
+            />;
         case ('select'):
             return (
                 <select
                     className={classes.InputElement}
-                    value={props.value}>
+                    value={props.value}
+                    onChange={props.onChange}>
                     {props.elementConfig.options.map((option) =>
                         <option
                             key={option.value}

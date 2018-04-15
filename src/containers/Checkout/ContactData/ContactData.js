@@ -61,6 +61,16 @@ class ContactData extends Component {
             });
     };
 
+    inputChangeHandler = (event, key) => {
+        const updatedForm = {...this.state.orderForm};
+        const updatedValue = {...updatedForm[key]};
+        updatedValue.value = event.target.value;
+        updatedForm[key] = updatedValue;
+        this.setState({
+            orderForm: updatedForm
+        });
+    };
+
     getFormOrSpinner = () => {
         if (this.state.loading) {
             return <Spinner/>
@@ -72,7 +82,8 @@ class ContactData extends Component {
                         key={key}
                         elementType={value.elementType}
                         elementConfig={value.elementConfig}
-                        value={value.value}/>
+                        value={value.value}
+                        onChange={(event) => this.inputChangeHandler(event, key)}/>
                 });
             return (
                 <form>
